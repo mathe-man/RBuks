@@ -139,4 +139,82 @@ public class Cube
             Console.WriteLine();
         }
     }
+    
+    public void EnterCameraMode()
+    {
+        // Valid navigation keys
+        ConsoleKey[] binds = new[] { ConsoleKey.UpArrow, ConsoleKey.DownArrow, ConsoleKey.RightArrow, ConsoleKey.LeftArrow };
+
+        Face currentFace = Face.Front; // starting face
+
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Camera mode — appuyez sur Escape ou Q pour quitter.");
+            Console.WriteLine();
+            // Show the current face
+            PrintFace(currentFace);
+
+            // Read key without echoing
+            var key = Console.ReadKey(true).Key;
+
+            // Quit conditions
+            if (key == ConsoleKey.Escape || key == ConsoleKey.Q)
+                break;
+
+            // If it's not a navigation key, ignore
+            if (!binds.Contains(key))
+                continue;
+
+            // Handle navigation from the current face
+            switch (currentFace)
+            {
+                case Face.Front:
+                    if (key == ConsoleKey.UpArrow) currentFace = Face.Up;
+                    else if (key == ConsoleKey.DownArrow) currentFace = Face.Down;
+                    else if (key == ConsoleKey.RightArrow) currentFace = Face.Right;
+                    else if (key == ConsoleKey.LeftArrow) currentFace = Face.Left;
+                    break;
+
+                case Face.Back:
+                    if (key == ConsoleKey.UpArrow) currentFace = Face.Up;
+                    else if (key == ConsoleKey.DownArrow) currentFace = Face.Down;
+                    else if (key == ConsoleKey.RightArrow) currentFace = Face.Left;  // mirrored
+                    else if (key == ConsoleKey.LeftArrow) currentFace = Face.Right; // mirrored
+                    break;
+
+                case Face.Up:
+                    if (key == ConsoleKey.UpArrow) currentFace = Face.Back;
+                    else if (key == ConsoleKey.DownArrow) currentFace = Face.Front;
+                    else if (key == ConsoleKey.RightArrow) currentFace = Face.Right;
+                    else if (key == ConsoleKey.LeftArrow) currentFace = Face.Left;
+                    break;
+
+                case Face.Down:
+                    if (key == ConsoleKey.UpArrow) currentFace = Face.Front;
+                    else if (key == ConsoleKey.DownArrow) currentFace = Face.Back;
+                    else if (key == ConsoleKey.RightArrow) currentFace = Face.Right;
+                    else if (key == ConsoleKey.LeftArrow) currentFace = Face.Left;
+                    break;
+
+                case Face.Left:
+                    if (key == ConsoleKey.UpArrow) currentFace = Face.Up;
+                    else if (key == ConsoleKey.DownArrow) currentFace = Face.Down;
+                    else if (key == ConsoleKey.RightArrow) currentFace = Face.Front;
+                    else if (key == ConsoleKey.LeftArrow) currentFace = Face.Back;
+                    break;
+
+                case Face.Right:
+                    if (key == ConsoleKey.UpArrow) currentFace = Face.Up;
+                    else if (key == ConsoleKey.DownArrow) currentFace = Face.Down;
+                    else if (key == ConsoleKey.RightArrow) currentFace = Face.Back;
+                    else if (key == ConsoleKey.LeftArrow) currentFace = Face.Front;
+                    break;
+            }
+        }
+
+        Console.Write("Clear screen? (Y/N): ");
+        if (Console.ReadKey().Key == ConsoleKey.Y)
+            Console.Clear();
+    }
 }
