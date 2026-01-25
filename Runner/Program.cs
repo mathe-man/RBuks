@@ -23,6 +23,8 @@ class Program
         
         Console.WriteLine("Final Up face:");        cube.PrintFace(Face.Up);
         Console.WriteLine("Final Front face:");     cube.PrintFace(Face.Front);
+        
+        cube.EnterCameraMode();
 
     }
 }

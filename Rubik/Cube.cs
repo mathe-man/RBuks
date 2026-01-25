@@ -100,7 +100,6 @@ public class Cube
         // Rotate the U face itself
         RotateFaceCw(Faces[Face.Up]);
     }
-
     
     public void MoveDown()
     {
@@ -128,6 +127,132 @@ public class Cube
         // Rotate the B face itself (existing behavior preserved)
         RotateFaceCw(Faces[Face.Back]);
     }
+    
+    
+    public void MoveLeft()
+    {
+        // Save U left column
+        char[] temp = new char[3];
+        for (int i = 0; i < 3; i++)
+            temp[i] = Faces[Face.Up][i, 0];
+
+        // U <- Back (right column, reversed)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Up][i, 0] = Faces[Face.Back][2 - i, 2];
+
+        // Back <- Down (right column, reversed)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Back][2 - i, 2] = Faces[Face.Down][i, 0];
+
+        // Down <- Front (left column)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Down][i, 0] = Faces[Face.Front][i, 0];
+
+        // Front <- saved U (temp)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Front][i, 0] = temp[i];
+
+        // Rotate the Left face itself
+        RotateFaceCw(Faces[Face.Left]);
+    }
+    
+    public void MoveRight()
+    {
+        // Save U right column
+        char[] temp = new char[3];
+        for (int i = 0; i < 3; i++)
+            temp[i] = Faces[Face.Up][i, 2];
+
+        // U <- Front (right column)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Up][i, 2] = Faces[Face.Front][i, 2];
+
+        // Front <- Down (right column)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Front][i, 2] = Faces[Face.Down][i, 2];
+
+        // Down <- Back (left column, reversed)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Down][i, 2] = Faces[Face.Back][2 - i, 0];
+
+        // Back <- saved U (reversed into left column)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Back][2 - i, 0] = temp[i];
+
+        // Rotate the Right face itself
+        RotateFaceCw(Faces[Face.Right]);
+    }
+
+    
+    public void MoveFront()
+    {
+        // Save U bottom row
+        char[] up = new char[3];
+        for (int i = 0; i < 3; i++)
+            up[i] = Faces[Face.Up][2, i];
+
+        // Save Right left column
+        char[] right = new char[3];
+        for (int i = 0; i < 3; i++)
+            right[i] = Faces[Face.Right][i, 0];
+
+        // Save D top row
+        char[] down = new char[3];
+        for (int i = 0; i < 3; i++)
+            down[i] = Faces[Face.Down][0, i];
+
+        // Save Left right column
+        char[] left = new char[3];
+        for (int i = 0; i < 3; i++)
+            left[i] = Faces[Face.Left][i, 2];
+
+        // U bottom -> Right left
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Right][i, 0] = up[i];
+
+        // Right left -> D top (reversed)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Down][0, i] = right[2 - i];
+
+        // D top -> Left right
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Left][i, 2] = down[i];
+
+        // Left right -> U bottom (reversed)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Up][2, i] = left[2 - i];
+
+        // Rotate the Front face itself
+        RotateFaceCw(Faces[Face.Front]);
+    }
+
+    public void MoveBack()
+    {
+        // Save U top row
+        char[] temp = new char[3];
+        for (int i = 0; i < 3; i++)
+            temp[i] = Faces[Face.Up][0, i];
+
+        // U <- Left (left column, reversed)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Up][0, i] = Faces[Face.Left][2 - i, 0];
+
+        // Left <- D bottom row
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Left][i, 0] = Faces[Face.Down][2, i];
+
+        // D bottom <- Right (right column, reversed)
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Down][2, i] = Faces[Face.Right][2 - i, 2];
+
+        // Right <- saved U
+        for (int i = 0; i < 3; i++)
+            Faces[Face.Right][i, 2] = temp[i];
+
+        // Rotate the Back face itself
+        RotateFaceCw(Faces[Face.Back]);
+    }
+    
     
     public void PrintFace(Face face)
     {
