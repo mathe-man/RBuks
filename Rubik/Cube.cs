@@ -265,12 +265,12 @@ public class Cube
         }
     }
     
-    public void EnterCameraMode()
+    public void EnterCameraMode(Face startingFace = Face.Front)
     {
         // Valid navigation keys
         ConsoleKey[] binds = new[] { ConsoleKey.UpArrow, ConsoleKey.DownArrow, ConsoleKey.RightArrow, ConsoleKey.LeftArrow };
 
-        Face currentFace = Face.Front; // starting face
+        Face currentFace = startingFace; // starting face
 
         while (true)
         {
