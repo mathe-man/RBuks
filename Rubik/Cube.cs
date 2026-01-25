@@ -118,4 +118,14 @@ public class Cube
         // Rotate the U face itself
         RotateFaceCw(Faces["B"]);
     }
+    
+    public void PrintFace(string face)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+                Console.Write(Faces[face][i, j] + " ");
+            Console.WriteLine();
+        }
+    }
 }
