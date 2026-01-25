@@ -15,14 +15,14 @@ class Program
     static void Main(string[] args)
     {
         Cube cube = new Cube();
-        Console.WriteLine("Initial Up face:");      cube.PrintFace("U");    // Print the Up face
-        Console.WriteLine("Initial Front face:");   cube.PrintFace("F");    // Print the Front face
+        Console.WriteLine("Initial Up face:");      cube.PrintFace(Face.Up);    // Print the Up face
+        Console.WriteLine("Initial Front face:");   cube.PrintFace(Face.Front);    // Print the Front face
         
-        cube.MoveU();
+        cube.MoveUp();
         Console.WriteLine("Clockwise rotation applied to the Up face.\n\n");
         
-        Console.WriteLine("Final Up face:");        cube.PrintFace("U");
-        Console.WriteLine("Final Front face:");     cube.PrintFace("F");
+        Console.WriteLine("Final Up face:");        cube.PrintFace(Face.Up);
+        Console.WriteLine("Final Front face:");     cube.PrintFace(Face.Front);
 
     }
 }

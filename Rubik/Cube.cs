@@ -8,41 +8,51 @@
 
 namespace Rubik;
 
+public enum Face
+{
+    Up, 
+    Down,
+    Front,
+    Back,
+    Left,
+    Right
+}
+
 public class Cube
 {
-    protected Dictionary<string, char[,]> Faces = new()
+    protected Dictionary<Face, char[,]> Faces = new()
     {
-        ["U"] = new char[,] {
+        [Face.Up] = new[,] {
             { 'W','W','W' },
             { 'W','W','W' },
             { 'W','W','W' }
         },
 
-        ["D"] = new char[,] {
+        [Face.Down] = new[,] {
             { 'Y','Y','Y' },
             { 'Y','Y','Y' },
             { 'Y','Y','Y' }
         },
 
-        ["F"] = new char[,] {
+        [Face.Front] = new[,] {
             { 'G','G','G' },
             { 'G','G','G' },
             { 'G','G','G' }
         },
 
-        ["B"] = new char[,] {
+        [Face.Back] = new[,] {
             { 'B','B','B' },
             { 'B','B','B' },
             { 'B','B','B' }
         },
 
-        ["L"] = new char[,] {
+        [Face.Left] = new[,] {
             { 'O','O','O' },
             { 'O','O','O' },
             { 'O','O','O' }
         },
 
-        ["R"] = new char[,] {
+        [Face.Right] = new[,] {
             { 'R','R','R' },
             { 'R','R','R' },
             { 'R','R','R' }
@@ -64,62 +74,62 @@ public class Cube
         }
     }
 
-    public void MoveU()
+    public void MoveUp()
     {
         // Save F top row
         char[] temp = new char[3];
         for (int i = 0; i < 3; i++)
-            temp[i] = Faces["F"][0, i];
+            temp[i] = Faces[Face.Front][0, i];
 
         // L -> F
         for (int i = 0; i < 3; i++)
-            Faces["F"][0, i] = Faces["L"][0, i];
+            Faces[Face.Front][0, i] = Faces[Face.Left][0, i];
 
         // B -> L
         for (int i = 0; i < 3; i++)
-            Faces["L"][0, i] = Faces["B"][0, i];
+            Faces[Face.Left][0, i] = Faces[Face.Back][0, i];
 
         // R -> B
         for (int i = 0; i < 3; i++)
-            Faces["B"][0, i] = Faces["R"][0, i];
+            Faces[Face.Back][0, i] = Faces[Face.Right][0, i];
 
         // temp -> R
         for (int i = 0; i < 3; i++)
-            Faces["R"][0, i] = temp[i];
+            Faces[Face.Right][0, i] = temp[i];
 
         // Rotate the U face itself
-        RotateFaceCw(Faces["U"]);
+        RotateFaceCw(Faces[Face.Up]);
     }
 
     
-    public void MoveD()
+    public void MoveDown()
     {
         // Save F bottom row
         char[] temp = new char[3];
         for (int i = 0; i < 3; i++)
-            temp[i] = Faces["F"][2, i];
+            temp[i] = Faces[Face.Front][2, i];
 
         // L -> F
         for (int i = 0; i < 3; i++)
-            Faces["F"][2, i] = Faces["L"][2, i];
+            Faces[Face.Front][2, i] = Faces[Face.Left][2, i];
 
         // B -> L
         for (int i = 0; i < 3; i++)
-            Faces["L"][2, i] = Faces["B"][2, i];
+            Faces[Face.Left][2, i] = Faces[Face.Back][2, i];
 
         // R -> B
         for (int i = 0; i < 3; i++)
-            Faces["B"][2, i] = Faces["R"][2, i];
+            Faces[Face.Back][2, i] = Faces[Face.Right][2, i];
 
         // temp -> R
         for (int i = 0; i < 3; i++)
-            Faces["R"][2, i] = temp[i];
+            Faces[Face.Right][2, i] = temp[i];
 
-        // Rotate the U face itself
-        RotateFaceCw(Faces["B"]);
+        // Rotate the B face itself (existing behavior preserved)
+        RotateFaceCw(Faces[Face.Back]);
     }
     
-    public void PrintFace(string face)
+    public void PrintFace(Face face)
     {
         for (int i = 0; i < 3; i++)
         {
