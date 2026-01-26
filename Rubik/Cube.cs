@@ -74,6 +74,20 @@ public class Cube
         }
     }
 
+    protected void RotateFaceCcw(char[,] face)
+    {
+        char[,] temp = (char[,])face.Clone();
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                // Rotate 90° counter-clockwise
+                face[2 - j, i] = temp[i, j];
+            }
+        }
+    }
+
     public void MoveUp()
     {
         // Save F top row
