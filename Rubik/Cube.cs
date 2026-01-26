@@ -88,7 +88,7 @@ public class Cube
         }
     }
 
-    public void MoveUp()
+    public void MoveUpCw()
     {
         // Save F top row
         char[] temp = new char[3];
@@ -114,8 +114,15 @@ public class Cube
         // Rotate the U face itself
         RotateFaceCw(Faces[Face.Up]);
     }
+    // Inverse (counter-clockwise)
+    public void MoveUpCcw()
+    {
+        MoveUpCw();
+        MoveUpCw();
+        MoveUpCw();
+    }
     
-    public void MoveDown()
+    public void MoveDownCw()
     {
         // Save F bottom row
         char[] temp = new char[3];
@@ -138,12 +145,18 @@ public class Cube
         for (int i = 0; i < 3; i++)
             Faces[Face.Right][2, i] = temp[i];
 
-        // Rotate the B face itself (existing behavior preserved)
-        RotateFaceCw(Faces[Face.Back]);
+        // Rotate the Down face itself
+        RotateFaceCw(Faces[Face.Down]);
+    }
+    // Inverse (counter-clockwise)
+    public void MoveDownCcw()
+    {
+        MoveDownCw();
+        MoveDownCw();
+        MoveDownCw();
     }
     
-    
-    public void MoveLeft()
+    public void MoveLeftCw()
     {
         // Save U left column
         char[] temp = new char[3];
@@ -169,8 +182,15 @@ public class Cube
         // Rotate the Left face itself
         RotateFaceCw(Faces[Face.Left]);
     }
+    // Inverse (counter-clockwise)
+    public void MoveLeftCcw()
+    {
+        MoveLeftCw();
+        MoveLeftCw();
+        MoveLeftCw();
+    }
     
-    public void MoveRight()
+    public void MoveRightCw()
     {
         // Save U right column
         char[] temp = new char[3];
@@ -196,9 +216,15 @@ public class Cube
         // Rotate the Right face itself
         RotateFaceCw(Faces[Face.Right]);
     }
-
+    // Inverse (counter-clockwise)
+    public void MoveRightCcw()
+    {
+        MoveRightCw();
+        MoveRightCw();
+        MoveRightCw();
+    }
     
-    public void MoveFront()
+    public void MoveFrontCw()
     {
         // Save U bottom row
         char[] up = new char[3];
@@ -239,8 +265,15 @@ public class Cube
         // Rotate the Front face itself
         RotateFaceCw(Faces[Face.Front]);
     }
-
-    public void MoveBack()
+    // Inverse (counter-clockwise)
+    public void MoveFrontCcw()
+    {
+        MoveFrontCw();
+        MoveFrontCw();
+        MoveFrontCw();
+    }
+    
+    public void MoveBackCw()
     {
         // Save U top row
         char[] temp = new char[3];
@@ -265,6 +298,13 @@ public class Cube
 
         // Rotate the Back face itself
         RotateFaceCw(Faces[Face.Back]);
+    }
+    // Inverse (counter-clockwise)
+    public void MoveBackCcw()
+    {
+        MoveBackCw();
+        MoveBackCw();
+        MoveBackCw();
     }
     
     
@@ -355,5 +395,65 @@ public class Cube
         Console.Write("Clear screen? (Y/N): ");
         if (Console.ReadKey().Key == ConsoleKey.Y)
             Console.Clear();
+    }
+    
+    
+    public bool IsSolved()
+    {
+        foreach (var face in Faces)
+        {
+            char color = face.Value[0, 0];
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (face.Value[i, j] != color)
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    public void Reset()
+    {
+        Faces = new()
+        {
+            [Face.Up] = new[,] {
+                { 'W','W','W' },
+                { 'W','W','W' },
+                { 'W','W','W' }
+            },
+
+            [Face.Down] = new[,] {
+                { 'Y','Y','Y' },
+                { 'Y','Y','Y' },
+                { 'Y','Y','Y' }
+            },
+
+            [Face.Front] = new[,] {
+                { 'G','G','G' },
+                { 'G','G','G' },
+                { 'G','G','G' }
+            },
+
+            [Face.Back] = new[,] {
+                { 'B','B','B' },
+                { 'B','B','B' },
+                { 'B','B','B' }
+            },
+
+            [Face.Left] = new[,] {
+                { 'O','O','O' },
+                { 'O','O','O' },
+                { 'O','O','O' }
+            },
+
+            [Face.Right] = new[,] {
+                { 'R','R','R' },
+                { 'R','R','R' },
+                { 'R','R','R' }
+            }
+        };
     }
 }
