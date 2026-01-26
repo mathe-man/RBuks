@@ -20,7 +20,7 @@ public enum Face
 
 public class Cube
 {
-    protected Dictionary<Face, char[,]> Faces = new()
+    public Dictionary<Face, char[,]> Faces { get; protected set; } = new()
     {
         [Face.Up] = new[,] {
             { 'W','W','W' },
