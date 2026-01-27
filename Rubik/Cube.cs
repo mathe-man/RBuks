@@ -329,7 +329,7 @@ public class Cube
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("Camera mode — Press Escape or Q to exit.");
+            Console.WriteLine("Camera mode — Press Escape or Q to quit.");
             Console.WriteLine();
             // Show the current face
             PrintFace(currentFace);
