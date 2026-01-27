@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{6A45DA7E-DA6E-422E-964A-76AC1FFD5132}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{6A45DA7E-DA6E-422E-964A-76AC1FFD5132}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubik", "Rubik\Rubik.csproj", "{1825CBA1-E33B-423D-9951-D7E42CECEFE9}"
 EndProject
