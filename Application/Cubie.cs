@@ -46,6 +46,12 @@ public class Cubie
         };
     }
     
+    public void Draw()
+    {
+        Raylib.DrawCubeV(Position, Size, Color);
+        Raylib.DrawCubeWiresV(Position, Size, Color.Black);
+    }
+    
     public bool IsHoovered(Camera3D camera)
     {
         Ray ray = Raylib.GetMouseRay(Raylib.GetMousePosition(), camera);
