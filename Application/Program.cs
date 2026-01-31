@@ -53,7 +53,9 @@ class Program
     {
         // === Startup ===
         Init();
-        
+
+        Cubie c = new Cubie(new Vector3(0,0,0));
+        c.SetColorFromChar('O');
 
         // === Loop ===
         while (!Raylib.WindowShouldClose())
@@ -91,8 +93,10 @@ class Program
             Raylib.DrawGrid(10, 1);     // Draw a grid to visualize the 3D space
             DrawPositions();
 
+            c.Draw();
+            Console.WriteLine($"{c.IsHoovered(camera)} ; {c.IsClicked(camera, MouseButton.Left)}");
 
-
+            // Ending frame
             Raylib.EndMode3D();
             // ImGui rendering
             rlImGui.End();
