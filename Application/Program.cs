@@ -43,28 +43,17 @@ class Program
         return true;
     }
     
+    static float time = 0f;
+    static (int Minutes, float Seconds) timeForms = (
+        (int)(time / 60),
+        time % 60f
+    );
+    
     static void Main()
     {
         // === Startup ===
         Init();
         
-        // === Cube / Scene ===
-        Cubie c = new (new Vector3(0,0,0));
-        
-        Vector3 cubePos = Vector3.One;
-        float cubeSize = 2f;
-
-        BoundingBox cubeBox = new BoundingBox(
-            cubePos - new Vector3(cubeSize / 2),
-            cubePos + new Vector3(cubeSize / 2)
-        );
-
-        
-        float time = 50f;
-        (int Minutes, float Seconds) timeForms = (
-            (int)(time / 60),
-            time % 60f
-        );
 
         // === Loop ===
         while (!Raylib.WindowShouldClose())
@@ -99,26 +88,12 @@ class Program
             Raylib.ClearBackground(Color.DarkGray); // Dark gray background
 
             Raylib.BeginMode3D(camera);  
-
             Raylib.DrawGrid(10, 1);     // Draw a grid to visualize the 3D space
+            DrawPositions();
 
-            Raylib.DrawCube(
-                /*RotateAroundPoint(
-                    cubePos,
-                    Vector3.Zero,
-                    Vector3.UnitY,
-                    360f,
-                    time % 10f / 10f
-                )*/ Vector3.Zero,
-                cubeSize,
-                cubeSize,
-                cubeSize,
-                 Color.Violet
-            );
-            DrawPosition();
+
 
             Raylib.EndMode3D();
-
             // ImGui rendering
             rlImGui.End();
 
@@ -141,8 +116,13 @@ class Program
         return true;
     }
 
+    
+    private static readonly Vector3 Zero = new Vector3(1,1,1) / 100;
+    private static readonly Vector3 X = new Vector3(1000,1,1) / 100;
+    private static readonly Vector3 Y = new Vector3(1,1000,1) / 100;
+    private static readonly Vector3  Z = new Vector3(1,1,1000) / 100;
     private static List<Texture2D> _positionsTextures = new ();
-    static void DrawPosition()
+    static void DrawPositions()
     {
         // Generate position textures if not already done
         if (_positionsTextures.Count == 0)
@@ -183,6 +163,12 @@ class Program
                     
                     Raylib.DrawBillboard(camera, _positionsTextures[idx], pos, scale, Color.White);
                 }
+        
+        
+        
+        Raylib.DrawLine3D(Zero, X, Color.Red);
+        Raylib.DrawLine3D(Zero, Y, Color.Green);
+        Raylib.DrawLine3D(Zero, Z, Color.Blue);
     }
     
   
