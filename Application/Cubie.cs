@@ -23,11 +23,27 @@ public class Cubie
     }
 
     public BoundingBox BoundingBox { get; private set; }
+
+    public Color Color { get; set; }
     
     public Cubie(Vector3 position, Vector3? size = null, Vector3? scale = null)
     {
         Position = position;
         Size = size ?? new Vector3(1,1,1);
+    }
+
+    public void SetColorFromChar(char c)
+    {
+        Color = c switch
+        {
+            'W' => Color.White,
+            'Y' => Color.Yellow,
+            'R' => Color.Red,
+            'O' => Color.Orange,
+            'B' => Color.Blue,
+            'G' => Color.Green,
+            _ => Color.Lime
+        };
     }
     
     public bool IsHoovered(Camera3D camera)
@@ -43,5 +59,28 @@ public class Cubie
         if (Raylib.IsMouseButtonPressed(mouseButton))
             return IsHoovered(camera);
         return false;
+    }
+    
+    public void RotateAroundPoint(
+        Vector3 pivot,
+        Vector3 axis,
+        float angleDeg,
+        float t
+    )
+    {
+        axis = Vector3.Normalize(axis);
+    
+        Vector3 v = Position - pivot;
+    
+        float angleRad = angleDeg * t * (float)Math.PI / 180f;
+        float cos = MathF.Cos(angleRad);
+        float sin = MathF.Sin(angleRad);
+    
+        Vector3 rotated =
+            v * cos +
+            Vector3.Cross(axis, v) * sin +
+            axis * Vector3.Dot(axis, v) * (1 - cos);
+    
+        Position =  pivot + rotated;
     }
 }

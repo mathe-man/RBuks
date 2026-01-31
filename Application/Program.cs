@@ -185,27 +185,5 @@ class Program
                 }
     }
     
-    public static Vector3 RotateAroundPoint(
-        Vector3 position,
-        Vector3 pivot,
-        Vector3 axis,
-        float angleDeg,
-        float t
-    )
-    {
-        axis = Vector3.Normalize(axis);
-    
-        Vector3 v = position - pivot;
-    
-        float angleRad = angleDeg * t * (float)Math.PI / 180f;
-        float cos = MathF.Cos(angleRad);
-        float sin = MathF.Sin(angleRad);
-    
-        Vector3 rotated =
-            v * cos +
-            Vector3.Cross(axis, v) * sin +
-            axis * Vector3.Dot(axis, v) * (1 - cos);
-    
-        return pivot + rotated;
-    }
+  
 }
