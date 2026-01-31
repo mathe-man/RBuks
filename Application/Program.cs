@@ -49,6 +49,7 @@ class Program
         Init();
         
         // === Cube / Scene ===
+        Cubie c = new (new Vector3(0,0,0));
         
         Vector3 cubePos = Vector3.One;
         float cubeSize = 2f;
@@ -80,17 +81,6 @@ class Program
             CameraUpdate();
             
             
-            // === Mouse picking ===
-            /*
-            if (Raylib.IsMouseButtonPressed(MouseButton.Left))
-            {
-                Ray ray = Raylib.GetMouseRay(Raylib.GetMousePosition(), camera);
-                RayCollision hit = Raylib.GetRayCollisionBox(ray, cubeBox);
-
-                if (hit.Hit)
-                    cubeSelected = !cubeSelected;
-            }*/
-
             // === ImGui Begin ===
             rlImGui.Begin();
             
